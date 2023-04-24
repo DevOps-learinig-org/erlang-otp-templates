@@ -24,6 +24,6 @@ handle_call(_Request, _From, State) ->
   NewState = State,
   {reply, Reply, NewState}.
 
-handle_cast(_Request, _From, State) ->
+handle_cast(_Request, State) ->
   NewState = State,
   {noreply, NewState}.
