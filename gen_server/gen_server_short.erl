@@ -1,6 +1,6 @@
-%---MOD-NAME---(change this comment together with -module().)
--module(mod_name).
-%---GEN-SERVER---
+%---MODULE-NAME---(change this comment together with -module().)
+-module(module_name).
+%---GEN_SERVER---
 -behavour(gen_server).
 
 -export([start_link/0, start_link/1]).
@@ -16,5 +16,14 @@ start_link(RegisterName) ->
   StartOpts = [],
   gen_server:start_link(RegisterName, ?MODULE, InitArgs, StartOpts).
 
-init() ->
-  {ok,State}.
+init(InitArgs) ->
+  State = InitArgs,
+  {ok, State}.
+
+handle_call(_Request, _From, State) ->
+  NewState = State,
+  {reply, Reply, NewState}.
+
+handle_cast(_Request, _From, State) ->
+  NewState = State,
+  {noreply, NewState}.
