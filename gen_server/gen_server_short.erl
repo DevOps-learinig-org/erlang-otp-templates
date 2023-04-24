@@ -21,6 +21,7 @@ init(InitArgs) ->
   {ok, State}.
 
 handle_call(_Request, _From, State) ->
+  Reply = ok,
   NewState = State,
   {reply, Reply, NewState}.
 
