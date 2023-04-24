@@ -6,15 +6,18 @@
 -export([start_link/0, start_link/1]).
 -export([init/1, handle_call/3, handle_cast/2]).
 
-start_link() -> 
-  InitArgs = [],
-  StartOpts = [],
-  gen_server:start_link({local, ?MODULE}, ?MODULE, InitArgs, StartOpts).
+-define(INITARGS, []).
+-define(STARTOPTS, []).
 
-start_link(RegisterName) -> 
-  InitArgs = [],
-  StartOpts = [],
-  gen_server:start_link(RegisterName, ?MODULE, InitArgs, StartOpts).
+start_link() ->
+  gen_server:start_link(
+    {local, ?MODULE}, ?MODULE, ?INITARGS, ?STARTOPTS
+  ).
+
+start_link(RegisterName) ->
+  gen_server:start_link(
+    RegisterName, ?MODULE, ?INITARGS, ?STARTOPTS
+  ).
 
 init(InitArgs) ->
   State = InitArgs,
