@@ -21,7 +21,8 @@ start_link(RegisterName) ->
 init(InitArgs) ->
   State = InitArgs,
   {ok, State}.
-% {ok,State} | {ok,State,_} | {ok,_,Timeout} | {ok,_,hibernate} | {ok,_,{continue,Continue}}
+% {ok,State} | {ok,State,_} | {ok,_,Timeout} | {ok,_,hibernate}
+% {ok,_,{continue,Continue}}
 % {stop,Reason}
 % ignore
 
@@ -29,22 +30,22 @@ handle_call(_Request, _From, State) ->
   Reply = ok,
   NewState = State,
   {reply, Reply, NewState}.
-% {reply,Reply, NewState}
-%  | {reply,Reply,NewState,Timeout}
-%  | {reply,Reply,NewState,hibernate}
-%  | {reply,Reply,NewState,{continue,Continue}}
-%  | {noreply,NewState}
-%  | {noreply,NewState,Timeout}
-%  | {noreply,NewState,hibernate}
-%  | {noreply,NewState,{continue,Continue}}
-%  | {stop,Reason,Reply,NewState}
-%  | {stop,Reason,NewState}
+% {reply,Reply, NewState} 
+% {reply,Reply,NewState,Timeout}
+% {reply,Reply,NewState,hibernate}
+% {reply,Reply,NewState,{continue,Continue}}
+% {noreply,NewState}
+% {noreply,NewState,Timeout}
+% {noreply,NewState,hibernate}
+% {noreply,NewState,{continue,Continue}}
+% {stop,Reason,Reply,NewState}
+% {stop,Reason,NewState}
 
 handle_cast(_Request, State) ->
   NewState = State,
   {noreply, NewState}.
 % {noreply,NewState}
-%  | {noreply,NewState,Timeout}
-%  | {noreply,NewState,hibernate}
-%  | {noreply,NewState,{continue,Continue}}
-%  | {stop,Reason,NewState}
+% {noreply,NewState,Timeout}
+% {noreply,NewState,hibernate}
+% {noreply,NewState,{continue,Continue}}
+% {stop,Reason,NewState}
