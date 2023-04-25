@@ -15,16 +15,17 @@ start_link(SupervisorName) ->
   supervisor:start_link(SupervisorName, ?MODULE, ?INITARGS).
 
 init(_Args) ->
-  SupFlags = #{strategy   => one_for_one, % optional: one_for_one, one_for_all, rest_for_one, simple_one_for_one
+  SupFlags = #{strategy   => one_for_one, % optional: one_for_one | one_for_all | rest_for_one | simple_one_for_one
                intensity  => 1,           % optional, default = 1
                period     => 5,           % optional, default = 5, means 1 restart per 5 sec 
-               auto_shutdown = never },   % optional: never, any_significant, all_significant
+               auto_shutdown = never },   % optional: never | any_significant | all_significant
   ChildSpecs = [
-    #{id        => gen_server_module,
-      start     => {reg_name, start_link, []}, 
-      restart   => permanent, % permanent, temporary, transient
-      shutdown  => brutal_kill,
-      type      => worker,
-      modules   => [ch3]} %,
+    #{id        => reg_id,
+      start     => { module, start_link, [] }, % { Mod, Fun, Args }
+      restart   => permanent,   % optional: permanent | temporary | transient
+      shutdown  => brutal_kill, % optional: brutal_kill | timeout()
+      significant => false,     % optional: boolean() if true then auto_shutdown \= never and restart \= permanent
+      type      => worker %,    % optional: worker | supervisor
+      % modules   => [module]} %,  % optional: used by the release handler during upgrades and downgrades
     ],
     {ok, {SupFlags, ChildSpecs}}.
