@@ -22,7 +22,8 @@ init(_Args) ->
   ChildSpecs = [
       new_child(child_id_1, module),
       new_child(child_id_2, module)            
-    ],
+    ], 
+    % ChildSpecs = [new_child(Id, module) || Id <- [child_id_1, child_id_1]]
     { ok, {SupervisorFlags, ChildSpecs} }.
 
 new_child(Id, Module) ->
