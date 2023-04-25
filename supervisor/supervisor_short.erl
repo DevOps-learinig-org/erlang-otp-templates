@@ -19,8 +19,8 @@ init(_Args) ->
                intensity  => 1,
                period     => 5 },
   ChildSpecs = [
-    #{id        => ch3,
-      start     => {ch3, start_link, []},
+    #{id        => gen_server_module,
+      start     => {reg_name, start_link, []},
       restart   => permanent,
       shutdown  => brutal_kill,
       type      => worker,
