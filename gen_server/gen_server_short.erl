@@ -10,9 +10,7 @@
 -define(STARTOPTS, []).
 
 start_link() ->
-  gen_server:start_link(
-    {local, ?MODULE}, ?MODULE, ?INITARGS, ?STARTOPTS
-  ).
+  gen_server:start_link(?MODULE, ?INITARGS, ?STARTOPTS).
 
 start_link(RegisterName) ->
   gen_server:start_link(
