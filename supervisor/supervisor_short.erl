@@ -18,7 +18,7 @@ init(_Args) ->
   SupFlags = #{strategy   => one_for_one, % optional: one_for_one, one_for_all, rest_for_one, simple_one_for_one
                intensity  => 1,           % optional, default = 1
                period     => 5,           % optional, default = 5, means 1 restart per 5 sec 
-               auto_shutdown = never },   % optional: never, any_significant
+               auto_shutdown = never },   % optional: never, any_significant, all_significant
   ChildSpecs = [
     #{id        => gen_server_module,
       start     => {reg_name, start_link, []}, 
