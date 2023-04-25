@@ -20,8 +20,8 @@ init(_Args) ->
                period     => 5,           % optional, default = 5, means 1 restart per 5 sec 
                auto_shutdown = never },   % optional: never | any_significant | all_significant
   ChildSpecs = [
-    #{id        => reg_id,
-      start     => { module, start_link, [] }, % { Mod, Fun, Args }
+    #{id        => child_id_1,
+      start     => { child_module, start_link, [] }, % { Mod, Fun, Args }
       restart   => permanent,   % optional: permanent | temporary | transient
       shutdown  => brutal_kill, % optional: brutal_kill | timeout()
       significant => false,     % optional: boolean() if true then auto_shutdown \= never and restart \= permanent
