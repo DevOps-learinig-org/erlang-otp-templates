@@ -15,7 +15,7 @@ start_link(SupervisorName) ->
   supervisor:start_link(SupervisorName, ?MODULE, ?INITARGS).
 
 init(_Args) ->
-  SupFlags = #{strategy   => one_for_one, % optional: one_for_one | one_for_all | rest_for_one | simple_one_for_one
+  SupervisorFlags = #{strategy   => one_for_one, % optional: one_for_one | one_for_all | rest_for_one | simple_one_for_one
                intensity  => 1,           % optional, default = 1
                period     => 5,           % optional, default = 5, means 1 restart per 5 sec 
                auto_shutdown = never },   % optional: never | any_significant | all_significant
@@ -28,4 +28,4 @@ init(_Args) ->
       type      => worker %,    % optional: worker | supervisor
       % modules   => [module]} %,  % optional: used by the release handler during upgrades and downgrades
     ],
-    {ok, {SupFlags, ChildSpecs}}.
+    {ok, {SupervisorFlags, ChildSpecs}}.
