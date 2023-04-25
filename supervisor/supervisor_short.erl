@@ -28,7 +28,7 @@ init(_Args) ->
 
 new_child(Id, Module) ->
   #{id      => Id,
-  start     => { Module, start_link, Id }, % { Mod, Fun, Args }
+  start     => { Module, start_link, [{ local, Id}] }, % { Mod, Fun, Args }
   restart   => permanent,   % optional: permanent | temporary | transient
   shutdown  => brutal_kill, % optional: brutal_kill | timeout()
   significant => false,     % optional: boolean() if true then auto_shutdown \= never and restart \= permanent
