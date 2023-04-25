@@ -9,7 +9,7 @@
 -define(INITARGS, []).
 
 start_link() ->
-  supervisor:start_link(?MODULE, ?INITARGS).
+  supervisor:start_link({local, ?MODULE}, ?MODULE, ?INITARGS).
 
 start_link(SupervisorName) ->
   supervisor:start_link(SupervisorName, ?MODULE, ?INITARGS).
@@ -20,13 +20,16 @@ init(_Args) ->
                period     => 5,           % optional, default = 5, means 1 restart per 5 sec 
                auto_shutdown => never },   % optional: never | any_significant | all_significant
   ChildSpecs = [
-    #{id        => child_id_1,
-      start     => { child_module, start_link, [] }, % { Mod, Fun, Args }
-      restart   => permanent,   % optional: permanent | temporary | transient
-      shutdown  => brutal_kill, % optional: brutal_kill | timeout()
-      significant => false,     % optional: boolean() if true then auto_shutdown \= never and restart \= permanent
-      type      => worker %,    % optional: worker | supervisor
-      % modules   => [module] %,  % optional: used by the release handler during upgrades and downgrades
-      }
+      new_child(child_id_1, module),
+      new_child(child_id_2, module)            
     ],
-    {ok, {SupervisorFlags, ChildSpecs}}.
+    { ok, {SupervisorFlags, ChildSpecs} }.
+
+new_child(Id, Module) ->
+  #{id      => Id,
+  start     => { Module, start_link, [] }, % { Mod, Fun, Args }
+  restart   => permanent,   % optional: permanent | temporary | transient
+  shutdown  => brutal_kill, % optional: brutal_kill | timeout()
+  significant => false,     % optional: boolean() if true then auto_shutdown \= never and restart \= permanent
+  type      => worker %,    % optional: worker | supervisor
+}.
